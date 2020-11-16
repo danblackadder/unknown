@@ -1,0 +1,29 @@
+@mixin color-hover-populate {
+	$colors: (
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		.color-#{$color}-hover {
+			@extend .cursor-pointer;
+			transition: color $base-transition-speed $base-transition-timing;
+		}
+
+		.color-#{$color}-hover:hover,
+		.color-#{$color}-hover:focus {
+			color: $var;
+		}
+	}
+}
+
+@include color-hover-populate();

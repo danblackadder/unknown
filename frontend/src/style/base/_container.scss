@@ -1,0 +1,15 @@
+// container
+
+.container {
+	@extend .margin-center;
+	@extend .padding-vertical-16;
+	@extend .padding-horizontal-4;
+	@extend .relative;
+	max-width: $container;
+	width: 100%;
+}
+
+.full-container {
+	@extend .full-view-width-max;
+	@extend .full-view-height-min;
+}

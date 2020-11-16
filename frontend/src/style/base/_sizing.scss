@@ -1,0 +1,43 @@
+.full-width {
+	width: 100%;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.full-view-width {
+	width: 100vw;
+}
+
+.full-view-height {
+	height: 100vh;
+}
+
+.full-view-width-min {
+	min-width: 100vw;
+}
+
+.full-view-width-max {
+	max-width: 100vw;
+}
+
+.full-view-height-min {
+	min-height: 100vh;
+}
+
+.full-view-height-max {
+	max-height: 100vh;
+}
+
+@mixin width-create {
+	$size: '100', '200', '300';
+
+	@each $item in $size {
+		.width-#{$item} {
+			width: #{$item}px;
+		}
+	}
+}
+
+@include width-create();

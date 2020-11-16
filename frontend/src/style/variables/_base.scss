@@ -1,0 +1,60 @@
+// font
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
+
+$font-base-family: 'Lato', sans-serif;
+$font-heading-family: 'Roboto', sans-serif;
+$font-base-color: $white;
+$font-base-size: 12px;
+$font-base-line-height: initial;
+$font-base-weight: $regular;
+$font-base-letter-spacing: initial;
+
+// paragraph
+
+$p-size: $font-base-size;
+$p-line-height: $font-base-line-height;
+$p-weight: $font-base-weight;
+$p-letter-spacing: $font-base-letter-spacing;
+$p-family: $font-base-family;
+
+// headings
+
+$h5-color: $font-base-color;
+$h5-size: 1.063em;
+$h5-line-height: $font-base-line-height;
+$h5-weight: $regular;
+$h5-letter-spacing: $font-base-letter-spacing;
+$h5-family: $font-heading-family;
+
+$h4-color: $font-base-color;
+$h4-size: 1.286em;
+$h4-line-height: $font-base-line-height;
+$h4-weight: $regular;
+$h4-letter-spacing: $font-base-letter-spacing;
+$h4-family: $font-heading-family;
+
+$h3-color: $font-base-color;
+$h3-size: 1.571em;
+$h3-line-height: $font-base-line-height;
+$h3-weight: $semibold;
+$h3-letter-spacing: $font-base-letter-spacing;
+$h3-family: $font-heading-family;
+
+$h2-color: $font-base-color;
+$h2-size: 2.571em;
+$h2-line-height: $font-base-line-height;
+$h2-weight: $bold;
+$h2-letter-spacing: $font-base-letter-spacing;
+$h2-family: $font-heading-family;
+
+$h1-color: $font-base-color;
+$h1-size: 3.571em;
+$h1-line-height: $font-base-line-height;
+$h1-weight: $bold;
+$h1-letter-spacing: $font-base-letter-spacing;
+$h1-family: $font-heading-family;
+
+// colors
+
+$background-base-color: $black;

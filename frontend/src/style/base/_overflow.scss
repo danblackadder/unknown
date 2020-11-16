@@ -1,0 +1,12 @@
+@mixin overflow-create {
+	// Easy to add more cursors
+	$overflows: 'scroll', 'hidden', 'visible';
+
+	@each $overflow in $overflows {
+		.overflow-#{$overflow} {
+			overflow: #{$overflow} !important;
+		}
+	}
+}
+
+@include overflow-create;

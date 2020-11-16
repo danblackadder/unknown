@@ -1,0 +1,54 @@
+@mixin background-hover-populate {
+	$directions: (
+		'top': 'bottom', 
+		'right': 'left',
+		'bottom': 'top',
+		'left': 'right'
+	);
+
+	$colors: (
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		@each $direction, $real-direction in $directions {
+			.background-#{$color}-hover-#{$real-direction} {
+				@extend .relative;
+				@extend .overflow-hidden;
+				@extend .cursor-pointer;
+			}
+
+			.background-#{$color}-hover-#{$real-direction}:before {
+				content: '';
+				@extend .absolute;
+				@extend .full-width;
+				@extend .full-height;
+				background-color: $var;
+				#{$direction}: 100%;
+				transition: #{$direction} $background-transition-speed $background-transition-timing;
+				@if ($direction == 'top' or $direction == 'bottom') {
+					left: 0;
+				} @else {
+					top: 0;
+				}
+			}
+
+			.background-#{$color}-hover-#{$real-direction}:hover:before,
+			.background-#{$color}-hover-#{$real-direction}:focus:before {
+				#{$direction}: 0;
+			}
+		}
+	}
+}
+
+@include background-hover-populate();

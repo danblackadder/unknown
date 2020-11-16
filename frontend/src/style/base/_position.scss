@@ -1,0 +1,22 @@
+@mixin set-position {
+	$align: 'relative', 'absolute', 'fixed', 'sticky';
+
+	@each $item in $align {
+		.#{$item} {
+			position: #{$item};
+		}
+	}
+}
+
+@mixin reset-position {
+	$align: 'left', 'right', 'top', 'bottom';
+
+	@each $item in $align {
+		.#{$item} {
+			#{$item}: 10px;
+		}
+	}
+}
+
+@include reset-position();
+@include set-position();

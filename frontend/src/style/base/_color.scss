@@ -1,0 +1,47 @@
+@mixin background-color-populate {
+	$colors: (
+		'transparent': transparent,
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		.background-#{$color} {
+			background-color: #{$var} !important;
+		}
+	}
+}
+
+@mixin color-populate {
+	$colors: (
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		.#{$color} {
+			color: #{$var};
+		}
+	}
+}
+
+@include background-color-populate();
+@include color-populate();

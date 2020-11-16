@@ -1,0 +1,22 @@
+@mixin text-populate {
+	$align: 'left', 'right', 'center', 'justify';
+
+	@each $item in $align {
+		.text-#{$item} {
+			text-align: #{$item};
+		}
+	}
+}
+
+@mixin text-transform {
+	$cases: 'capitalize', 'uppercase', 'lowercase';
+
+	@each $item in $cases {
+		.text-#{$item} {
+			text-transform: #{$item};
+		}
+	}
+}
+
+@include text-populate();
+@include text-transform();

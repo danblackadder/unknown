@@ -1,0 +1,12 @@
+@mixin pointer-create {
+	// Easy to add more cursors
+	$cursors: 'default', 'pointer', 'not-allowed';
+
+	@each $cursor in $cursors {
+		.cursor-#{$cursor} {
+			cursor: #{$cursor} !important;
+		}
+	}
+}
+
+@include pointer-create;

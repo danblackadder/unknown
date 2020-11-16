@@ -1,0 +1,68 @@
+// flex-direction
+@mixin flex-content-populate {
+	// Align stuffs
+	$align: 'column', 'row', 'center';
+
+	@each $item in $align {
+		@if ($item == 'center') {
+			.flex-#{$item} {
+				display: flex;
+				justify-content: #{$item};
+				align-items: #{$item};
+			}
+		} @else {
+			.flex-#{$item} {
+				display: flex;
+				flex-direction: #{$item};
+				@if ($item == 'row') {
+					flex-wrap: wrap;
+				}
+			}
+		}
+	}
+}
+
+// justify-content
+@mixin justify-create {
+	$align: 'space-around', 'space-between', 'center', 'flex-end', 'flex-start';
+
+	@each $item in $align {
+		.justify-#{$item} {
+			justify-content: #{$item};
+		}
+	}
+}
+
+// align-self
+@mixin align-self {
+	// Align stuffs
+	$align: 'start', 'end', 'center', 'stretch';
+
+	@each $item in $align {
+		@if ($item == 'center' or $item == 'stretch') {
+			.align-#{$item} {
+				align-self: #{$item};
+			}
+		} @else {
+			.align-#{$item} {
+				align-self: flex-#{$item};
+			}
+		}
+	}
+}
+
+// flex
+@mixin flex-create {
+	$flex: 12;
+
+	@for $i from 1 through $flex {
+		.flex-#{$i} {
+			flex: $i;
+		}
+	}
+}
+
+@include flex-content-populate();
+@include justify-create();
+@include flex-create();
+@include align-self();

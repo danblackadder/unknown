@@ -1,0 +1,39 @@
+@mixin borders-populate {
+	$styles: (dotted, dashed, solid, double);
+	$colors: (
+		'transparent': transparent,
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		@if ($color == 'transparent') {
+			.border-#{$color} {
+				border-color: $var;
+				border-radius: $border-radius;
+				border-width: $border-thickness;
+				border-style: solid;
+			}
+		} @else {
+			@each $style in $styles {
+				.border-#{$color}-#{$style} {
+					border-color: $var;
+					border-radius: $border-radius;
+					border-width: $border-thickness;
+					border-style: $style;
+				}
+			}
+		}
+	}
+}
+
+@include borders-populate();

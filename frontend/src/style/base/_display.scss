@@ -1,0 +1,12 @@
+@mixin display-create {
+	// Easy to add more cursors
+	$displays: 'none', 'inline', 'block', 'inline-block';
+
+	@each $display in $displays {
+		.display-#{$display} {
+			display: #{$display} !important;
+		}
+	}
+}
+
+@include display-create;

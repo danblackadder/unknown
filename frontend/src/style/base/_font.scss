@@ -1,0 +1,79 @@
+@mixin font-weight-populate {
+	$weights: (
+		'ultrathin': $ultrathin,
+		'thin': $thin,
+		'light': $light,
+		'semilight': $semilight,
+		'regular': $regular,
+		'semibold': $semibold,
+		'bold': $bold,
+		'ultrabold': $ultrabold,
+		'black': $black,
+	);
+
+	@each $weight, $var in $weights {
+		.weight-#{$weight} {
+			font-weight: #{$var};
+		}
+	}
+}
+
+@mixin tags-populate {
+	$tags: (
+		p: (
+			$p-size,
+			$p-line-height,
+			$p-weight,
+			$p-letter-spacing,
+			$p-family,
+		),
+		h5: (
+			$h5-size,
+			$h5-line-height,
+			$h5-weight,
+			$h5-letter-spacing,
+			$h5-family,
+		),
+		h4: (
+			$h4-size,
+			$h4-line-height,
+			$h4-weight,
+			$h4-letter-spacing,
+			$h4-family,
+		),
+		h3: (
+			$h3-size,
+			$h3-line-height,
+			$h3-weight,
+			$h3-letter-spacing,
+			$h3-family,
+		),
+		h2: (
+			$h2-size,
+			$h2-line-height,
+			$h2-weight,
+			$h2-letter-spacing,
+			$h2-family,
+		),
+		h1: (
+			$h1-size,
+			$h1-line-height,
+			$h1-weight,
+			$h1-letter-spacing,
+			$h1-family,
+		),
+	);
+
+	@each $tag, $vars in $tags {
+		#{$tag} {
+			font-size: #{nth($vars, 1)};
+			line-height: #{nth($vars, 2)};
+			font-weight: #{nth($vars, 3)};
+			letter-spacing: #{nth($vars, 4)};
+			font-family: #{nth($vars, 5)};
+		}
+	}
+}
+
+@include font-weight-populate();
+@include tags-populate();

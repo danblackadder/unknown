@@ -1,0 +1,30 @@
+@mixin border-hover-populate {
+	$colors: (
+		'primary': $primary,
+		'secondary': $secondary,
+		'neutral': $neutral,
+		'highlight-1': $highlight-1,
+		'highlight-2': $highlight-2,
+		'white': $white,
+		'black': $black,
+		'info': $info,
+		'success': $success,
+		'warning': $warning,
+		'danger': $danger,
+	);
+
+	@each $color, $var in $colors {
+		.border-#{$color}-hover {
+			transition: border-color
+				$base-transition-speed
+				$base-transition-timing;
+		}
+
+		.border-#{$color}-hover:hover,
+		.border-#{$color}-hover:focus {
+			border-color: $var;
+		}
+	}
+}
+
+@include border-hover-populate();
