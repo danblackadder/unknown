@@ -32,6 +32,5 @@
     "start": "nodemon app.js",
     "build": "pm2 start app.js",
     "setup": "node ./scripts/setup.js",
-    "create-user": "node ./scripts/user.js"
   }
 }
