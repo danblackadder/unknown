@@ -1,0 +1,233 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "",
+    "title": "",
+    "description": ""
+  },
+  "host": "",
+  "basePath": "",
+  "tags": [
+    {
+      "name": "",
+      "description": ""
+    }
+  ],
+  "schemes": [],
+  "securityDefinitions": {},
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "first_name",
+            "in": "path",
+            "description": "New Users First Name"
+          },
+          {
+            "name": "last_name",
+            "in": "path",
+            "description": "New Users Last Name"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "New Users Email"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/projects/": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Project Name"
+          },
+          {
+            "name": "owner_id",
+            "in": "path",
+            "description": "User ID"
+          },
+          {
+            "name": "user_ids",
+            "in": "path",
+            "description": "Array of User IDs"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/projects/{id}": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "User ID"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Project ID"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "New Project Name"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Project"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Project ID"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/tasks/": {
+      "get": {
+        "tags": [
+          "Task"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "path",
+            "description": "Task Title"
+          },
+          {
+            "name": "description",
+            "in": "path",
+            "description": "Task Description"
+          },
+          {
+            "name": "parent_id",
+            "in": "path",
+            "description": "Associated Project ID"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/tasks/{id}": {
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Task ID"
+          },
+          {
+            "name": "title",
+            "in": "path",
+            "description": "New Task Title"
+          },
+          {
+            "name": "description",
+            "in": "path",
+            "description": "New Task Description"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {}
+}

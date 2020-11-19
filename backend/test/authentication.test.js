@@ -44,38 +44,38 @@ describe('Authentication', () => {
 	}),
 
 	describe('validateRegisterInput', () => {
-		it('should error if forename is empty', () => {
+		it('should error if first_name is empty', () => {
 			let data = {
-				forename: '',
-				surname: 'test',
+				first_name: '',
+				last_name: 'test',
 				email: 'test@test.com'
 			};
 
-			let actual = validateRegisterInput(data).errors.forename;
+			let actual = validateRegisterInput(data).errors.first_name;
 
-			let expected = 'Forename is required';
+			let expected = 'First name is required';
 
 			assert.equal(actual, expected);
 		}),
 
-		it('should error if surname is empty', () => {
+		it('should error if last_name is empty', () => {
 			let data = {
-				forename: 'test',
-				surname: '',
+				first_name: 'test',
+				last_name: '',
 				email: 'test@test.com'
 			};
 
-			let actual = validateRegisterInput(data).errors.surname;
+			let actual = validateRegisterInput(data).errors.last_name;
 
-			let expected = 'Surname is required';
+			let expected = 'Last name is required';
 
 			assert.equal(actual, expected);
 		}),
 
 		it('should error if email is empty', () => {
 			let data = {
-				forename: 'test',
-				surname: 'test',
+				first_name: 'test',
+				last_name: 'test',
 				email: ''
 			};
 
@@ -88,8 +88,8 @@ describe('Authentication', () => {
 
 		it('should error if email is not a valid email', () => {
 			let data = {
-				forename: 'test',
-				surname: 'test',
+				first_name: 'test',
+				last_name: 'test',
 				email: 'test'
 			};
 

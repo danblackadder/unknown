@@ -31,6 +31,14 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 router.post('/register', (req, res) => {
+
+    // #swagger.tags = ['Users']
+    // #swagger.method = 'post'
+    // #swagger.path = '/api/users/register'
+    // #swagger.parameters['first_name'] = { in: 'path', description: 'New Users First Name' }
+    // #swagger.parameters['last_name'] = { in: 'path', description: 'New Users Last Name' }
+    // #swagger.parameters['email'] = { in: 'path', description: 'New Users Email' }
+    
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
@@ -98,6 +106,13 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+
+    // #swagger.tags = ['Users']
+    // #swagger.method = 'post'
+    // #swagger.path = '/api/users/login'
+    // #swagger.parameters['email'] = { in: 'path', description: 'Email' }
+    // #swagger.parameters['password'] = { in: 'path', description: 'Password' }
+
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {

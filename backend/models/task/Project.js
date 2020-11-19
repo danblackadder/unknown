@@ -2,16 +2,27 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+/**
+ * 
+ * @typedef Project
+ * @property {string} name.required
+ * @property {objectId} owner_id.required
+ * @property {array.objectId} user_ids
+ * @property {date} created
+ * @property {date} updated
+ *  
+*/
+
 const ProjectSchema = new Schema({
     name: {
         type: String,
         required: true,
     },
-    ownerId: {
+    owner_id: {
         type: Schema.Types.ObjectId,
-        required: false,
+        required: true,
     },
-    userIds: {
+    user_ids: {
         type: Array,
         required: false,
     },

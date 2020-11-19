@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // authentication
 const passport = require('passport');
 
 // uploads
-const path = require('path');
 const bodyParser = require('body-parser');
 
 // routes
@@ -29,6 +29,7 @@ mongoose.connect(
 );
 
 const app = express();
+
 app.use(passport.initialize());
 require('./helpers/authentication/passport')(passport);
 
@@ -45,8 +46,11 @@ app.use('/api/users', users);
 app.use('/api/projects', projects);
 app.use('/api/tasks', tasks);
 
+app.use('/api-docs', express.static(path.join(__dirname, '/documentation/')));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
 	console.log(`Server is running on PORT: ${PORT}`);
+	console.log(`Documentation available on: http://localhost:${PORT}/api-docs`);
 });
