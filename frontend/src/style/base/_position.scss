@@ -13,7 +13,7 @@
 
 	@each $item in $align {
 		.#{$item} {
-			#{$item}: 10px;
+			#{$item}: 0;
 		}
 	}
 }

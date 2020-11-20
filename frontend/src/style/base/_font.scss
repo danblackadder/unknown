@@ -18,6 +18,17 @@
 	}
 }
 
+
+@mixin font-size-populate {
+	$sizes: 4, 8, 16, 24, 32, 64;
+
+	@each $size in $sizes {
+		.font-size-#{$size} {
+			font-size: #{$size}px;
+		}
+	}
+}
+
 @mixin tags-populate {
 	$tags: (
 		p: (
@@ -76,4 +87,5 @@
 }
 
 @include font-weight-populate();
+@include font-size-populate();
 @include tags-populate();

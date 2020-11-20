@@ -26,6 +26,14 @@ const ProjectSchema = new Schema({
         type: Array,
         required: false,
     },
+    workflow: {
+        type: String,
+        default: 'backlog'
+    },
+    tasks: {
+        type: Number,
+        default: 0
+    },
     created: {
         type: Date,
         required: true,

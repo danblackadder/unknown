@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-class RegisterForm extends Component {
+import { login } from '../../../actions/authentication';
+
+class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
@@ -24,15 +28,9 @@ class RegisterForm extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        axios.post('/api/users/login', user)
-            .then((res, err) => {
-                if (err) console.log(err);
-                console.log(res);
-                localStorage.setItem('tcToken', res.data.token);
-                window.location.href = '/dashboard'; 
-            });
+        this.props.login(user, this.props.history);
     }
-  
+
     render() {
         return (
             <div style={{ maxWidth: '300px', width: '100%' }}>
@@ -58,4 +56,15 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+LoginForm.propTypes = {
+    history: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired,
+    handleToggle: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+    login
+};
+
+
+export default connect(null, mapDispatchToProps)(withRouter(LoginForm));

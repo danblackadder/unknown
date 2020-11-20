@@ -25,7 +25,7 @@
 			}
 		} @else {
 			@each $style in $styles {
-				.border-#{$color}-#{$style} {
+				.border-#{$style}-#{$color} {
 					border-color: $var;
 					border-radius: $border-radius;
 					border-width: $border-thickness;
@@ -36,4 +36,15 @@
 	}
 }
 
+@mixin border-radius {
+	$sizes: 4, 8, 16, 24, 32;
+
+	@each $size in $sizes {
+		.border-radius-#{$size} {
+			border-radius: #{$size}px;
+		}
+	}
+}
+
 @include borders-populate();
+@include border-radius();

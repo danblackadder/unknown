@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import logo from './../../images/Logo.svg';
 import RegisterForm from './forms/RegisterForm.js';
@@ -9,11 +10,8 @@ class Authentication extends Component {
         super();
         this.state = {
             loading: false,
-            register: true
+            register: false
         };
-    };
-
-    componentDidMount = () => {
     };
 
     handleToggle = () => {
@@ -42,5 +40,5 @@ class Authentication extends Component {
         );
     }
 }
-
+ 
 export default Authentication;

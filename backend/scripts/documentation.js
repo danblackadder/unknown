@@ -30,3 +30,5 @@ const endpointsFiles = [
 ]
  
 swaggerAutogen(outputFile, endpointsFiles, doc)
+
+//https://www.npmjs.com/package/swagger-autogen for documentation on how to write swagger

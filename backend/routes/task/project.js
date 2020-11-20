@@ -12,7 +12,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     // #swagger.method = 'get'
     // #swagger.path = '/api/projects/'
     
-    Project.find({ owner_id: req.params.user_id }, (err, projects) => {
+    Project.find({ owner_id: req.user._id }, (err, projects) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -28,7 +28,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
     // #swagger.tags = ['Project']
     // #swagger.method = 'get'
     // #swagger.path = '/api/projects/{id}'
-    // #swagger.parameters['id'] = { in: 'path', description: 'User ID' }
+    // #swagger.parameters['id'] = { in: 'path', description: 'Project ID' }
 
     Project.findById(req.params.id, (err, project) => {
         if (err) {

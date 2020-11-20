@@ -143,9 +143,10 @@ router.post('/login', (req, res) => {
                         if (err)
                             console.error('There is some error in token', err);
                         else {
+                            console.log(token);
                             res.json({
                                 success: true,
-                                token: `Bearer ${token}`,
+                                token: `${token}`,
                                 id: user.id
                             });
                         }

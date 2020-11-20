@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import jwt_decode from 'jwt-decode';
-import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import PulseLoader from "react-spinners/PulseLoader";
-
-import Navigation from './navigation/Navigation.js';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -14,40 +11,13 @@ class Dashboard extends Component {
         };
     }
 
-    noToken = () => {
-        localStorage.removeItem('taskception.tcToken');
-        delete axios.defaults.headers.common['Authorization'];
-        window.location.href = '/';
-    }
-    
-    componentDidMount = () => {
-        if (localStorage.tcToken) {
-            const token = jwt_decode(localStorage.tcToken);
-            const currentTime = Date.now() / 1000;
-            if (token.exp < currentTime) {
-                this.noToken();
-            } else {
-                axios.defaults.headers.common['Authorization'] = localStorage.tcToken;
-                this.setState({
-                    loading: false
-                });
-            };
-        } else {
-            this.noToken();
-        };
-    }
-
     render() {
         return (
             <div>
-                {this.state.loading ? (
-                    <div className="full-view-height full-view-width flex-center">
-                        <PulseLoader 
-                            color={'#fff'} />
-                    </div>
-                ) : (
-                    <Navigation />
-                )}
+                <div className="full-view-height background-secondary flex-center padding-16" style={{ border: '16px solid #2B2F33', borderRadius: '20px' }}>
+                    <PulseLoader 
+                        color={'#fff'} />
+                </div>
             </div>
         );
     }

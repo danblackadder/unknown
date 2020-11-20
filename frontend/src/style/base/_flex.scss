@@ -33,6 +33,24 @@
 	}
 }
 
+// align-items
+@mixin align-items {
+	// Align stuffs
+	$align: 'start', 'end', 'center', 'stretch';
+
+	@each $item in $align {
+		@if ($item == 'center' or $item == 'stretch') {
+			.align-items-#{$item} {
+				align-items: #{$item};
+			}
+		} @else {
+			.align-items-#{$item} {
+				align-items: flex-#{$item};
+			}
+		}
+	}
+}
+
 // align-self
 @mixin align-self {
 	// Align stuffs
@@ -40,11 +58,11 @@
 
 	@each $item in $align {
 		@if ($item == 'center' or $item == 'stretch') {
-			.align-#{$item} {
+			.align-self-#{$item} {
 				align-self: #{$item};
 			}
 		} @else {
-			.align-#{$item} {
+			.align-self-#{$item} {
 				align-self: flex-#{$item};
 			}
 		}
@@ -65,4 +83,5 @@
 @include flex-content-populate();
 @include justify-create();
 @include flex-create();
+@include align-items();
 @include align-self();

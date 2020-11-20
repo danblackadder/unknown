@@ -31,13 +31,26 @@
 }
 
 @mixin width-create {
-	$size: '100', '200', '300';
+	$size: 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000;
 
 	@each $item in $size {
 		.width-#{$item} {
-			width: #{$item}px;
+			max-width: #{$item}px;
+			width: 100%;
+		}
+	}
+}
+
+@mixin height-create {
+	$size: 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000;
+
+	@each $item in $size {
+		.height-#{$item} {
+			max-height: #{$item}px;
+			height: 100%;
 		}
 	}
 }
 
 @include width-create();
+@include height-create();

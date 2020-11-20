@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { register } from '../../../actions/authentication';
 
 class RegisterForm extends Component {
     constructor() {
@@ -27,13 +31,14 @@ class RegisterForm extends Component {
             last_name: this.state.last_name,
             email: this.state.email
         };
-        axios.post('/api/users/register', user)
-            .then((res, err) => {
-                if (err) console.log(err);
-                console.log(res);
-                this.props.handleToggle();
-            });
-    }
+        this.props.register(user, this.props.history)
+        .then(() => {
+            this.props.handleToggle();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
   
     render() {
         return (
@@ -64,4 +69,14 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+
+RegisterForm.propTypes = {
+    register: PropTypes.func.isRequired,
+    handleToggle: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+    register
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(RegisterForm));
