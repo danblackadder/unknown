@@ -18,32 +18,108 @@ export const getProjects = () => dispatch => {
                 'Completed': []
             };
 
-            res.data.forEach(project => {
-                switch(project) {
-                    case project.workflow == 'in_progress':
-                        projects['In Progress'].push(project);
-                        break;
-                    case project.workflow == 'completed':
-                        projects['Completed'].push(project);
-                        break;
-                    default:
-                        projects['Backlog'].push(project);
-                        break;
-                }
+            if (res.data.length > 0) {
+                res.data.forEach(project => {
+                    projects[project.workflow].push(project);
 
-                if (project == res.data[res.data.length - 1]) {
-                    dispatch(setProjects(projects));
-                    resolve();
-                }
-            });
+                    if (project == res.data[res.data.length - 1]) {
+                        dispatch(setProjects(projects));
+                        resolve();
+                    }
+                });
+            } else {
+                dispatch(setProjects(projects));
+                resolve();
+            }
         })
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
-                payload: err.response.data
+                payload: err
             });
-            reject();
+            reject(err);
         });
     });
 };
 
+export const createProject = (project) => (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        axios.post('/api/projects', project)
+        .then((res) => {
+            let projects = Object.assign({}, getState().projects);
+            projects[project.workflow].push(res.data);
+            dispatch(setProjects(projects));
+            resolve();
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
+            reject(err);
+        });
+    });
+};
+
+export const editProject = (id, project) => (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        axios.put(`/api/projects/${id}`, project)
+        .then((res) => {
+            let projects = Object.assign({}, getState().projects);
+            let projectIndex, workflow;
+            Object.keys(projects).map(tempWorkflow => {
+                let tempIndex = projects[tempWorkflow].findIndex(value => {
+                    return value._id == res.data._id;
+                });
+                console.log(tempIndex);
+                if (tempIndex != -1) {
+                    projectIndex = tempIndex;
+                    workflow = tempWorkflow;
+                };
+            });
+            console.log(res.data);
+            console.log(workflow);
+            console.log(projectIndex);
+            if (workflow == res.data.workflow) {
+                projects[workflow][projectIndex] = res.data;
+            } else {
+                let updatedWorkflow = projects[workflow].filter(value => {
+                    return value._id != res.data._id;
+                });
+                projects[workflow] = updatedWorkflow;
+                projects[res.data.workflow].push(res.data);
+            };
+            dispatch(setProjects(projects));
+            resolve();
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
+            reject(err);
+        });
+    });
+};
+
+export const deleteProject = (project) => (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+        axios.delete(`/api/projects/${project._id}`)
+        .then(() => {
+            let projects = Object.assign({}, getState().projects);
+            let updatedWorkflow = projects[project.workflow].filter(value => {
+                return value._id != project._id;
+            });
+            projects[project.workflow] = updatedWorkflow;
+            dispatch(setProjects(projects));
+            resolve();
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
+            reject(err);
+        });
+    });
+};

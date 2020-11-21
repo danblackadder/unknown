@@ -96,7 +96,6 @@ option {
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   text-decoration: none;
   background-image: none;
   box-sizing: border-box;
@@ -106,6 +105,12 @@ option {
   line-height: $font-base-line-height;
   letter-spacing: $font-base-letter-spacing;
   font-weight: $font-base-weight;
+}
+input,
+textarea,
+select,
+option {
+  color: $black;
 }
 h1,
 h2,
@@ -183,8 +188,12 @@ body {
 }
 
 ::placeholder {
-  color: $white;
+  color: $black;
   opacity: 0.8;
+}
+
+.placeholder-white::placeholder {
+  color: $white;
 }
 
 @media only screen and (max-width: 800px) {

@@ -2,20 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import {
-    MdMoreHoriz,
-    MdSubdirectoryArrowRight
-} from 'react-icons/md';
 import PulseLoader from "react-spinners/PulseLoader";
 
 import Search from './subcomponents/Search';
 import ActionBar from './subcomponents/ActionBar';
 import Workflow from './subcomponents/Workflow';
-import NewProjectModal from './subcomponents/NewProjectModal';
-
 
 import { getProjects } from '../../actions/projects';
-
 class Projects extends Component {
     constructor(props) {
         super(props);
@@ -59,11 +52,7 @@ class Projects extends Component {
                         <div className="flex-column padding-vertical-16 padding-right-16">
                             <Search />
                             <ActionBar toggleAddNewProjectInput={this.toggleAddNewProjectInput} />
-                            <Workflow />
-                            {this.state.addNewProject ? (
-                                <NewProjectModal
-                                    toggleAddNewProjectInput={this.toggleAddNewProjectInput} />
-                            ) : null}
+                            <Workflow toggleAddNewProjectInput={this.toggleAddNewProjectInput} addNewProject={this.state.addNewProject} />
                         </div>
                     )}
             </>

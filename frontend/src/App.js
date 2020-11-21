@@ -32,9 +32,9 @@ const App = () => {
                 <Navigation />
                 <div style={{ marginLeft: '300px' }}>
                     <Switch>
-                        <Route path={'/auth'} component={Authentication} />
+                        <Route path={'/dashboard'} component={Dashboard} />
                         <Route path={'/projects'} component={Projects} />
-                        <Route path={'/'} component={Dashboard} />
+                        <Route path={'/'} component={Authentication} />
                     </Switch>
                 </div>
             </Router>

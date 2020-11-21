@@ -58,6 +58,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         name: req.body.name,
         owner_id: req.body.owner_id,
         user_ids: req.body.user_ids,
+        workflow: req.body.workflow,
+        tags: req.body.tags,
         created: new Date(),
     });
 
@@ -87,6 +89,10 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
             res.status(500).send(err);
         } else {
             project.name = req.body.name;
+            project.workflow = req.body.workflow;
+            project.tags = req.body.tags;
+            project.owner_id = req.body.owner_id;
+            project.user_ids = req.body.user_ids;
 
             project.save((err, update) => {
                 if (err) {

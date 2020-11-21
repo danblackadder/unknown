@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { GET_ERRORS } from './types';
+import { setNavigation } from './navigation';
 import Cookie from "js-cookie";
 
 export const register = (user, history) => dispatch => {
@@ -9,7 +10,7 @@ export const register = (user, history) => dispatch => {
         axios
         .post('/api/users/register', user)
         .then(() => {
-            history.push('/auth');
+            history.push('/');
             resolve();
         })
         .catch(err => {
@@ -27,7 +28,9 @@ export const login = (user, history) => dispatch => {
         axios.post('/api/users/login', user)
         .then(res => {
             Cookie.set("token", res.data.token);
-            history.push('/'); 
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookie.get('token');
+            dispatch(setNavigation('dashboard'));
+            history.push('/dashboard'); 
             resolve();
         })
         .catch(err => {

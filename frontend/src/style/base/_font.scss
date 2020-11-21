@@ -20,7 +20,7 @@
 
 
 @mixin font-size-populate {
-	$sizes: 4, 8, 16, 24, 32, 64;
+	$sizes: 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64;
 
 	@each $size in $sizes {
 		.font-size-#{$size} {

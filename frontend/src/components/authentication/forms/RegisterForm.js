@@ -71,6 +71,7 @@ class RegisterForm extends Component {
 
 
 RegisterForm.propTypes = {
+    history: PropTypes.object.isRequired,
     register: PropTypes.func.isRequired,
     handleToggle: PropTypes.func.isRequired,
 };
