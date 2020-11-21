@@ -28,8 +28,8 @@ class ProjectCard extends Component {
         return (
             <div className="background-secondary padding-16 full-width border-radius-4 flex-column margin-bottom-16 relative" key={this.props.project._id}>
                 <div className="flex-row justify-space-between margin-bottom-16">
-                    <h2 className="font-size-16">{this.props.project.name}</h2>
-                    <MdMoreHoriz size={24} className="cursor-pointer" onClick={() => this.toggleProjectMenu()}/>
+                    <h2 className="font-size-16 flex-1" style={{ wordBreak: 'break-word' }}>{this.props.project.name}</h2>
+                    <MdMoreHoriz size={24} className="cursor-pointer margin-left-8" onClick={() => this.toggleProjectMenu()}/>
                     {this.state.projectMenu ? (
                         <ProjectMenu 
                             toggleDeleteProjectModal={this.props.toggleDeleteProjectModal} 

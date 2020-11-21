@@ -29,12 +29,18 @@ class ProjectModal extends Component {
         const project = {
             name: this.state.name,
             workflow: this.state.workflow,
-            tags: this.state.tags.split(','),
+            tags: this.state.tags.length > 0 ? this.state.tags.split(',') : [],
             owner_id: '5fb3e04d4ac02a4794ae958c'
         };
         if (!this.state.edit) {
             this.props.createProject(project)
             .then(() => {
+                this.setState({
+                    edit: false,
+                    name: '',
+                    workflow: 'Backlog',
+                    tags: ''
+                });
                 this.props.toggleAddNewProjectInput();
             })
             .catch(err => {
@@ -43,7 +49,13 @@ class ProjectModal extends Component {
         } else {
             this.props.editProject(this.props.project._id, project)
             .then(() => {
-                this.props.toggleAddNewProjectInput();
+                this.setState({
+                    edit: false,
+                    name: '',
+                    workflow: 'Backlog',
+                    tags: ''
+                });
+                this.props.toggleEditProjectModal({});
             })
             .catch(err => {
                 console.log(err);
@@ -52,13 +64,15 @@ class ProjectModal extends Component {
     };
 
     componentDidMount = () => {
-        if (Object.keys(this.props.project).length > 0) {
-            this.setState({
-                edit: true,
-                name: this.props.project.name,
-                workflow: this.props.project.workflow,
-                tags: this.props.project.tags.join(",")
-            });
+        if (this.props.project) {
+            if (Object.keys(this.props.project).length > 0) {
+                this.setState({
+                    edit: true,
+                    name: this.props.project.name,
+                    workflow: this.props.project.workflow,
+                    tags: this.props.project.tags.join(",")
+                });
+            };
         };
     };
 
@@ -83,6 +97,7 @@ class ProjectModal extends Component {
 }
 
 ProjectModal.propTypes = {
+    toggleEditProjectModal: PropTypes.func.isRequired,
     toggleAddNewProjectInput: PropTypes.func.isRequired,
     createProject: PropTypes.func.isRequired,
     editProject: PropTypes.func.isRequired,

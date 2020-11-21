@@ -71,15 +71,11 @@ export const editProject = (id, project) => (dispatch, getState) => {
                 let tempIndex = projects[tempWorkflow].findIndex(value => {
                     return value._id == res.data._id;
                 });
-                console.log(tempIndex);
                 if (tempIndex != -1) {
                     projectIndex = tempIndex;
                     workflow = tempWorkflow;
                 };
             });
-            console.log(res.data);
-            console.log(workflow);
-            console.log(projectIndex);
             if (workflow == res.data.workflow) {
                 projects[workflow][projectIndex] = res.data;
             } else {

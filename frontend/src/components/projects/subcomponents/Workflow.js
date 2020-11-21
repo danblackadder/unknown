@@ -58,6 +58,7 @@ class Workflow extends Component {
                 {this.props.addNewProject ? (
                     <ProjectModal
                         project={this.state.project}
+                        toggleEditProjectModal={this.toggleEditProjectModal}
                         toggleAddNewProjectInput={this.props.toggleAddNewProjectInput} />
                 ) : null}
                 {this.state.deleteProjectModal ? <DeleteProjectModal project={this.state.project} toggleDeleteProjectModal={this.toggleDeleteProjectModal} /> : null}
