@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "watch:sass": "node-sass-chokidar ./src/style/index.scss --output ./public/style --watch --output-style=compressed",
+    "watch:sass": "node-sass-chokidar -r ./src/style/ --output ./public/style --watch --output-style=compressed",
     "watch:js": "cross-env NODE_ENV=development webpack-dev-server --mode=development --config=webpack.js --watch",
     "build:sass": "node-sass-chokidar ./src/style/index.scss --output ./public/style --output-style=compressed",
     "build:js": "cross-env NODE_ENV=production webpack --mode=production --config=webpack.js",
@@ -37,6 +37,7 @@
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
     "react-spinners": "^0.9.0",
+    "react-toggle": "^4.1.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },

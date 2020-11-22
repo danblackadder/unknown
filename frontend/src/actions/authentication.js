@@ -3,6 +3,8 @@
 import axios from 'axios';
 import { GET_ERRORS } from './types';
 import { setNavigation } from './navigation';
+import { updateTheme } from './theme';
+import { setProfileImage } from './settings';
 import Cookie from "js-cookie";
 
 export const register = (user, history) => dispatch => {
@@ -28,8 +30,19 @@ export const login = (user, history) => dispatch => {
         axios.post('/api/users/login', user)
         .then(res => {
             Cookie.set("token", res.data.token);
+            let theme = Cookie.get("theme");
+
+            if (theme != res.data.theme) {
+                const user = {
+                    theme: theme
+                };
+                
+                updateTheme(user);
+            };
+
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookie.get('token');
             dispatch(setNavigation('dashboard'));
+            dispatch(setProfileImage(res.data.image));
             history.push('/dashboard'); 
             resolve();
         })
@@ -38,7 +51,7 @@ export const login = (user, history) => dispatch => {
                 type: GET_ERRORS,
                 payload: err
             });
-            reject();
+            reject(err);
         });
     });
 };

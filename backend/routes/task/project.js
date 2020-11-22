@@ -56,14 +56,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     const newProject = new Project({
         name: req.body.name,
-        owner_id: req.body.owner_id,
+        owner_id: req.user._id,
         user_ids: req.body.user_ids,
         workflow: req.body.workflow,
         tags: req.body.tags,
         created: new Date(),
     });
 
-    console.log(newProject);
     newProject.save().then(project => {
         res.json(project);
     });

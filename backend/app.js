@@ -47,6 +47,7 @@ app.use('/api/projects', projects);
 app.use('/api/tasks', tasks);
 
 app.use('/api-docs', express.static(path.join(__dirname, '/documentation/')));
+app.use('/uploads', express.static(path.join(__dirname, './uploads')))
 
 const PORT = process.env.PORT || 5000;
 

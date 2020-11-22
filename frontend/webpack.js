@@ -62,7 +62,8 @@ module.exports = {
         quiet: false,
         open: true,
         proxy: {
-            '/api/**': 'http://localhost:5000',
+            context: ['/uploads/**', '/api/**'],
+            target: 'http://localhost:5000',
             secure: false,
             changeOrigin: true
         }

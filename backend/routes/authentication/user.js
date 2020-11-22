@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mailer = require('express-mailer');
 const dotenv = require('dotenv');
+const passport = require('passport');
 
 const User = require('../../models/authentication/User');
 
@@ -143,11 +144,12 @@ router.post('/login', (req, res) => {
                         if (err)
                             console.error('There is some error in token', err);
                         else {
-                            console.log(token);
                             res.json({
                                 success: true,
                                 token: `${token}`,
-                                id: user.id
+                                id: user.id,
+                                theme: user.theme,
+                                image: user.image
                             });
                         }
                     },
@@ -159,5 +161,73 @@ router.post('/login', (req, res) => {
         });
     });
 });
+
+
+router.put('/theme', passport.authenticate('jwt', { session: false }), (req, res) => {
+    User.findById( req.user._id, (err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            user.theme = req.body.theme;
+
+            user.save((err, update) => {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(200);
+                };
+            });
+        };
+    });
+})
+
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/temp' });
+const fs = require('fs')
+const mv = require('mv');
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
+
+router.put('/image', passport.authenticate('jwt', { session: false }), upload.single('file'), (req, res) => {
+    if (!req.file)
+    return res.status(400).send('No files were uploaded.');
+
+    User.findById( req.user._id, (err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            var re = /(?:\.([^.]+))?$/;
+            var filetype = re.exec(req.file.originalname)[1];
+
+            var newFile = `uploads/profile/${req.user._id}.${filetype}`;
+
+            mv(req.file.path, newFile, (err) => {
+                if (err) {
+                    res.status(500).send(err);
+                };
+            });
+    
+            var allowed = ['png', 'jpg', 'jpeg'];
+            for (var i = 0; i < allowed.length; i++) {
+                if (allowed[i] != filetype) {
+                    var file_check = `uploads/profile/${req.user._id}.${allowed[i]}`;
+                    if (fs.existsSync(file_check)) {
+                        unlinkAsync(file_check);
+                    };
+                };
+            };
+
+            user.image = newFile;
+
+            user.save((err, updated) => {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).send(updated.image);
+                };
+            });
+        };
+    });
+})
 
 module.exports = router;

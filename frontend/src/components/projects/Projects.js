@@ -42,20 +42,20 @@ class Projects extends Component {
 
     render() {
         return (
-            <>
+            <div className="">
                 {this.state.loading ? (
-                    <div className="full-view-height background-primary flex-center padding-16" style={{ border: '16px solid #2B2F33', borderRadius: '20px' }}>
+                    <div className="full-view-height background-primary flex-center">
                         <PulseLoader
                             color={'#fff'} />
                     </div>
                 ) : (
-                        <div className="flex-column padding-vertical-16 padding-right-16">
+                        <div className="flex-column padding-16">
                             <Search />
                             <ActionBar toggleAddNewProjectInput={this.toggleAddNewProjectInput} />
                             <Workflow toggleAddNewProjectInput={this.toggleAddNewProjectInput} addNewProject={this.state.addNewProject} />
                         </div>
                     )}
-            </>
+            </div>
         );
     }
 }

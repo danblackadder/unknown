@@ -11,6 +11,7 @@ import Navigation from './components/navigation/Navigation';
 import Authentication from './components/authentication/Authentication';
 import Dashboard from './components/dashboard/Dashboard';
 import Projects from './components/projects/Projects';
+import Settings from './components/settings/Settings';
 
 import store from './store';
 import { logout } from './actions/authentication';
@@ -25,6 +26,25 @@ if (Cookie.get('token')) {
     };
 }
 
+if (Cookie.get('theme')) {
+    if (Cookie.get('theme') == 'dark') {
+        theme.href = 'style/dark.css';
+    } else {
+        theme.href = 'style/light.css';
+    }
+} else {
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    const theme = document.getElementById('theme');
+
+    if (prefersDarkScheme.matches) {
+        Cookie.set('theme', 'dark');
+        theme.href = 'style/dark.css';
+    } else {
+        Cookie.set('theme', 'light');
+        theme.href = 'style/light.css';
+    };
+};
+
 const App = () => {
     return (
         <Provider store={store}>
@@ -34,6 +54,7 @@ const App = () => {
                     <Switch>
                         <Route path={'/dashboard'} component={Dashboard} />
                         <Route path={'/projects'} component={Projects} />
+                        <Route path={'/settings'} component={Settings} />
                         <Route path={'/'} component={Authentication} />
                     </Switch>
                 </div>

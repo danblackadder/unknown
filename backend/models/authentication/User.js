@@ -19,6 +19,14 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
+    theme: {
+        type: String,
+        default: 'dark'
+    },
+    image: {
+        type: String,
+        default: null
+    },
     created: {
         type: Date,
         required: true,

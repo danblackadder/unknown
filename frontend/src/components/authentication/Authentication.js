@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Cookie from 'js-cookie';
 
-import logo from './../../images/Logo.svg';
 import RegisterForm from './forms/RegisterForm.js';
 import LoginForm from './forms/LoginForm.js';
 
+import BlackLogo from './../../images/BlackLogo.svg';
+import WhiteLogo from './../../images/WhiteLogo.svg';
 class Authentication extends Component {
     constructor() {
         super();
         this.state = {
             loading: false,
-            register: false
+            register: false,
+            theme: 'dark'
         };
     };
 
@@ -19,13 +21,21 @@ class Authentication extends Component {
             register: !this.state.register
         });
     };
+
+    componentDidMount = () => {
+        if (Cookie.get('theme')) {
+            this.setState({
+                theme: Cookie.get('theme')
+            });
+        };
+    };
   
     render() {
         return (
             <div className="container full-view-height flex-center">
                 <div className="full-width flex-row justify-space-around">
                     <img
-                        src={logo}
+                        src={this.state.theme == 'dark' ? WhiteLogo : BlackLogo}
                         alt="Taskception"
                     />
                     {this.state.register ? (
