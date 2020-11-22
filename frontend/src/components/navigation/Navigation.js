@@ -23,7 +23,7 @@ class Navigation extends Component {
     constructor() {
         super();
         this.state = {
-            theme: 'dark'
+            theme: 'light'
         };
     };
 
@@ -70,7 +70,7 @@ class Navigation extends Component {
                     <div className="flex-column margin-bottom-8">
                         <label className="margin-left-16 margin-bottom-16 flex-row align-items-center">
                             <Toggle
-                                defaultChecked={this.state.theme == 'dark' ? false : true}
+                                checked={this.state.theme == 'light' ? true : false}
                                 icons={{
                                 checked: <FaSun color='#65676D' />,
                                 unchecked: <FaMoon />,
@@ -78,7 +78,7 @@ class Navigation extends Component {
                                 onChange={(e) => this.handleThemeChange(e)} />
                             <span className="font-size-16 margin-left-16">Theme</span>
                         </label>
-                        <a className={this.props.navigation == 'settings' ? "font-size-16 padding-16 width-full flex-row align-items-center background-highlight-2 highlight-1 cursor-pointer" : "font-size-16 padding-16 width-full flex-row align-items-center cursor-pointer"} style={this.props.navigation == 'settings' ? { borderRight: '5px solid #007DFF'} : null} onClick={() => this.setNavigation('settings')}><MdSettings size={24} className="margin-right-8" />SETTINGS</a>
+                        <a className={this.props.navigation == 'settings' ? "font-size-16 padding-16 width-full flex-row align-items-center background-highlight-2 highlight-1 cursor-pointer" : "font-size-16 padding-16 width-full flex-row align-items-center cursor-pointer"} style={this.props.navigation == 'settings' ? { borderRight: (this.state.theme == 'dark' ? '5px solid #007DFF' : '5px solid #FD7B38') } : null} onClick={() => this.setNavigation('settings')}><MdSettings size={24} className="margin-right-8" />SETTINGS</a>
                     </div>
                 </div>
             </div>
