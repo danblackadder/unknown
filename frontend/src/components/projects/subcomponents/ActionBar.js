@@ -23,17 +23,13 @@ class ActionBar extends Component {
                         <MdViewWeek size={24} />
                     </div>
                 </div>
-                <div className="padding-16 background-highlight-1 white flex-center border-solid-highlight-1 cursor-pointer" style={{ borderRadius: '8px' }} onClick={() => this.props.toggleAddNewProjectInput()}>
+                <div className="padding-16 background-highlight-1 white flex-center border-solid-highlight-1 cursor-pointer" style={{ borderRadius: '8px' }}>
                     <MdAdd size={24} />
                 </div>
             </div>
         );
     }
 }
-
-ActionBar.propTypes = {
-    toggleAddNewProjectInput: PropTypes.func.isRequired
-};
 
 
 export default ActionBar;

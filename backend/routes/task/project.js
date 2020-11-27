@@ -6,23 +6,6 @@ const validateProjectInput = require('../../validation/task/project');
 
 const Project = require('../../models/task/Project');
 
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-
-    // #swagger.tags = ['Project']
-    // #swagger.method = 'get'
-    // #swagger.path = '/api/projects/'
-    
-    Project.find({ owner_id: req.user._id }, (err, projects) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.json(projects);
-        }
-    });
-});
-
-
-
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
 
     // #swagger.tags = ['Project']
@@ -45,7 +28,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     // #swagger.method = 'post'
     // #swagger.path = '/api/projects/'
     // #swagger.parameters['name'] = { in: 'path', description: 'Project Name' }
-    // #swagger.parameters['owner_id'] = { in: 'path', description: 'User ID' }
+    // #swagger.parameters['board'] = { in: 'path', description: 'User ID' }
     // #swagger.parameters['user_ids'] = { in: 'path', description: 'Array of User IDs' }
 
     const { errors, isValid } = validateProjectInput(req.body);
@@ -56,9 +39,9 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
     const newProject = new Project({
         name: req.body.name,
-        owner_id: req.user._id,
-        user_ids: req.body.user_ids,
+        board: req.body.board,
         workflow: req.body.workflow,
+        index: req.body.index,
         tags: req.body.tags,
         created: new Date(),
     });
@@ -77,21 +60,15 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
     // #swagger.parameters['id'] = { in: 'path', description: 'Project ID' }
     // #swagger.parameters['name'] = { in: 'path', description: 'New Project Name' }
 
-    const { errors, isValid } = validateProjectInput(req.body);
-
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
-
     Project.findById(req.params.id, (err, project) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            project.name = req.body.name;
-            project.workflow = req.body.workflow;
-            project.tags = req.body.tags;
-            project.owner_id = req.body.owner_id;
-            project.user_ids = req.body.user_ids;
+            project.name = req.body.name ? req.body.name : project.name;
+            project.workflow = req.body.workflow ? req.body.workflow : project.workflow;
+            project.tags = req.body.tags ? req.body.tags : project.tags;
+            project.board = req.body.board ? req.body.board : project.board;
+            project.index = req.body.index ? req.body.index : project.index;
 
             project.save((err, update) => {
                 if (err) {

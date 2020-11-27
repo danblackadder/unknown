@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-import PulseLoader from "react-spinners/PulseLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <div className="full-view-height background-secondary flex-center padding-16" style={{ border: '16px solid #2B2F33', borderRadius: '20px' }}>
-                    <PulseLoader 
+                    <PuffLoader 
                         color={'#fff'} />
                 </div>
             </div>

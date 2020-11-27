@@ -2,4 +2,4 @@
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_NAVIGATION = 'SET_NAVIGATION';
 export const SET_PROFILE_IMAGE = 'SET_PROFILE_IMAGE';
-export const SET_PROJECTS = 'SET_PROJECTS';
+export const SET_SETTINGS = 'SET_SETTINGS';

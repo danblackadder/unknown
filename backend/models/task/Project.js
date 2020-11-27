@@ -18,17 +18,17 @@ const ProjectSchema = new Schema({
         type: String,
         required: true,
     },
-    owner_id: {
+    board: {
         type: Schema.Types.ObjectId,
         required: true,
-    },
-    user_ids: {
-        type: Array,
-        required: false,
     },
     workflow: {
         type: String,
         default: 'Backlog'
+    },
+    index: {
+        type: Number,
+        required: true,
     },
     tags: {
         type: Array,

@@ -50,7 +50,7 @@ const App = () => {
         <Provider store={store}>
             <Router>
                 <Navigation />
-                <div style={{ marginLeft: '300px' }}>
+                <div className="full-height" style={{ marginLeft: '300px' }}>
                     <Switch>
                         <Route path={'/dashboard'} component={Dashboard} />
                         <Route path={'/projects'} component={Projects} />

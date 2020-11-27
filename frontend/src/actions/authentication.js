@@ -30,6 +30,8 @@ export const login = (user, history) => dispatch => {
         axios.post('/api/users/login', user)
         .then(res => {
             Cookie.set("token", res.data.token);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookie.get('token');
+
             let theme = Cookie.get("theme");
 
             if (theme != res.data.theme) {
@@ -39,8 +41,7 @@ export const login = (user, history) => dispatch => {
                 
                 updateTheme(user);
             };
-
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + Cookie.get('token');
+            
             dispatch(setNavigation('dashboard'));
             dispatch(setProfileImage(res.data.image));
             history.push('/dashboard'); 

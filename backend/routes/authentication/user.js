@@ -123,7 +123,7 @@ router.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({ email }).then(user => {
+    User.findOne({ email: email }).then(user => {
         if (!user) {
             errors.email = 'User not found';
             return res.status(404).json(errors);
@@ -227,6 +227,96 @@ router.put('/image', passport.authenticate('jwt', { session: false }), upload.si
                 };
             });
         };
+    });
+})
+
+router.get('/settings', passport.authenticate('jwt', { session: false }), (req, res) => {
+    User.findById( req.user._id, (err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            const userSettings = {
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email
+            };
+            res.json(userSettings);
+        }
+    });
+})
+
+router.put('/settings', passport.authenticate('jwt', { session: false }), (req, res) => {
+    var errors = {};
+    if (req.body.new_password != req.body.new_password_confirmation) {
+        errors.new_password = 'New passwords do no match';
+    };
+
+    User.findById( req.user._id, (err, user) => {
+        if (req.body.old_password.length > 0 || req.body.new_password.length > 0 || req.body.new_password_confirmation.length > 0) {
+            if (req.body.old_password.length == 0 && (req.body.new_password.length > 0 || req.body.new_password_confirmation.length > 0)) {
+                errors.old_password = 'Old password must be supplied to update password';
+                return res.status(400).json(errors);
+            };
+            if (req.body.new_password.length == 0) {
+                errors.new_password = 'New Password has not been supplied';
+            };
+            if (req.body.new_password_confirmation.length == 0) {
+                errors.new_password = 'Confirmation of New Password has not been supplied';
+            }
+            if (errors.length > 0) {
+                return res.status(400).json(errors);
+            }
+
+            bcrypt.compare(req.body.old_password, user.password).then(isMatch => {
+                if (isMatch) {
+                    bcrypt.genSalt(10, (err, salt) => {
+                        if (err) console.error('There was an error', err);
+                        else {
+                            bcrypt.hash(req.body.new_password, salt, (err, hash) => {
+                                if (err) console.error('There was an error', err);
+                                user.first_name = req.body.first_name;
+                                user.last_name = req.body.last_name;
+                                user.email = req.body.email;
+                                user.password = hash;
+
+                                user.save((err, update) => {
+                                    if (err) {
+                                        res.status(500).send(err);
+                                    } else {
+                                        updatedUser = {
+                                            first_name: update.first_name,
+                                            last_name: update.last_name,
+                                            email: update.email
+                                        };
+                                        res.json(updatedUser);
+                                    }
+                                });
+                            });
+                        };
+                    });
+                } else {
+                    errors.old_password = 'Incorrect Password';
+                    return res.status(400).json(errors);
+                };
+            });
+        } else {
+            user.first_name = req.body.first_name;
+            user.last_name = req.body.last_name;
+            user.email = req.body.email;
+
+            user.save((err, update) => {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    updatedUser = {
+                        first_name: update.first_name,
+                        last_name: update.last_name,
+                        email: update.email
+                    };
+                    res.json(updatedUser);
+                };
+            });
+        }
     });
 })
 

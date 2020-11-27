@@ -21,8 +21,8 @@ class Search extends Component {
                 <MdSearch size={24} />
                 <input type="text" className="padding-8 background-secondary white font-size-16 margin-horizontal-8 flex-1 placeholder-white" placeholder="Search" />
                 <MdNotificationsNone size={24} className="margin-right-16 cursor-pointer" />
-                <div className="cursor-pointer overflow-hidden flex-center" style={{ borderRadius: '100%', height: '28px', width: '28px', backgroundColor: '#fff' }} >
-                    <img src={this.props.profileImage ? this.props.profileImage : defaultImage} style={{ height: '28px' }}/>
+                <div className="cursor-pointer overflow-hidden flex-center" style={{ borderRadius: '100%', height: '36px', width: '36px', backgroundColor: '#fff' }} >
+                    <img src={this.props.profile_image ? this.props.profile_image : defaultImage} style={{ height: '36px' }}/>
                 </div>
             </div>
         );
@@ -30,11 +30,11 @@ class Search extends Component {
 };
 
 Search.propTypes = {
-    profileImage: PropTypes.string
+    profile_image: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-    profileImage: state.profileImage,
+    profile_image: state.profile_image,
 });
 
 
