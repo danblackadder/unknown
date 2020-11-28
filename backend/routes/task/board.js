@@ -11,22 +11,31 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
         if (err) {
             res.status(500).send(err);
         } else {
-            Project.find({ board: board._id }, (err, projects) => {
-                projects.map((project, index) => {
-                    let projectBoard = {
-                        _id: board._id,
-                        projects: {
-                            'Backlog': [],
-                            'In Progress': [],
-                            'Completed': []
-                        }
-                    };
-                    projectBoard.projects[project.workflow].push(project);
-                    if (index == projects.length - 1) {
-                        res.send(projectBoard);
+            if (board) {
+                let projectBoard = {
+                    _id: board._id,
+                    projects: {
+                        'Backlog': [],
+                        'In Progress': [],
+                        'Completed': []
                     }
-                });
-            }).sort({ workflow: 1, index: 1 })
+                };
+
+                Project.find({ board: board._id }, (err, projects) => {
+                    if (projects.length > 0) {
+                        projects.map((project, index) => {
+                            projectBoard.projects[project.workflow].push(project);
+                            if (index == projects.length - 1) {
+                                res.send(projectBoard);
+                            }
+                        });
+                    } else {
+                        res.send(projectBoard)
+                    }
+                }).sort({ workflow: 1, index: 1 })
+            } else {
+                res.send(board)
+            }
         }
     });
 });
@@ -39,7 +48,15 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     });
 
     newBoard.save().then(board => {
-        res.json(board);
+        let projectBoard = {
+            _id: board._id,
+            projects: {
+                'Backlog': [],
+                'In Progress': [],
+                'Completed': []
+            }
+        };
+        res.json(projectBoard);
     });
 });
 
@@ -49,16 +66,34 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
         if (err) {
             res.status(500).send(err);
         } else {
-            
-            console.log(req.body);
+            var projects_array = req.body;
+            if (projects_array.length > 0) {
+                projects_array.map(updated_project => {
+                    var project_id = updated_project._id;
+                    console.log(project_id);
+                    Project.findById(project_id, (err, project) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            project.workflow = updated_project.workflow;
+                            project.index = updated_project.index;
+                            project.board = board._id;
 
-            board.save((err, update) => {
-                if (err) {
-                    res.status(500).send(err);
-                } else {
-                    res.json(update);
-                }
-            });
+                            project.save((err, update) => {
+                                if (err) {
+                                    res.status(500).send(err);
+                                } else {
+                                    if (project._id == projects_array[projects_array.length - 1]._id) {
+                                        res.send('Sync complete');
+                                    };
+                                }
+                            });
+                        }
+                    })
+                })
+            } else { 
+                res.status(500).send('No projects sent for board');
+            }
         }
     });
 });

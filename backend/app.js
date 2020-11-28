@@ -13,7 +13,6 @@ const bodyParser = require('body-parser');
 const users = require('./routes/authentication/user');
 const boards = require('./routes/task/board');
 const projects = require('./routes/task/project');
-const tasks = require('./routes/task/task');
 
 dotenv.config();
 
@@ -46,7 +45,6 @@ app.use(bodyParser.json({ parameterLimit: '50000', limit: '500mb' }));
 app.use('/api/users', users);
 app.use('/api/boards', boards);
 app.use('/api/projects', projects);
-app.use('/api/tasks', tasks);
 
 app.use('/api-docs', express.static(path.join(__dirname, '/documentation/')));
 app.use('/uploads', express.static(path.join(__dirname, './uploads')))

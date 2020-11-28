@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import PulseLoader from "react-spinners/PulseLoader";
+import PuffLoader from "react-spinners/PuffLoader";
 
 import Search from './subcomponents/Search';
 import ActionBar from './subcomponents/ActionBar';
 import Workflow from './subcomponents/Workflow';
+
+import { getBoard } from '../../actions/board';
 class Projects extends Component {
     constructor(props) {
         super(props);
@@ -18,8 +21,14 @@ class Projects extends Component {
         this.setState({
             loading: true
         }, () => {
-            this.setState({
-                loading: false
+            this.props.getBoard()
+            .then(() => {
+                this.setState({
+                    loading: false
+                });
+            })
+            .catch(err => {
+                console.log(err);
             });
         });
     }
@@ -29,7 +38,7 @@ class Projects extends Component {
             <div className="full-height">
                 {this.state.loading ? (
                     <div className="full-view-height background-primary flex-center">
-                        <PulseLoader
+                        <PuffLoader
                             color={'#fff'} />
                     </div>
                 ) : (
@@ -45,4 +54,9 @@ class Projects extends Component {
 }
 
 
-export default Projects;
+const mapDispatchToProps = {
+    getBoard
+};
+
+
+export default connect(null, mapDispatchToProps)(Projects);

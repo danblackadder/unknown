@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import onClickOutside from "react-onclickoutside";
 
 import {
     MdDelete,
     MdModeEdit,
-    MdClear,
-    MdThumbsUpDown
+    MdClear
 } from 'react-icons/md';
 
 class Projects extends Component {
@@ -20,12 +18,10 @@ class Projects extends Component {
 
     toggleDeleteProjectModal = (project) => {
         this.props.toggleProjectMenu();
-        this.props.toggleDeleteProjectModal(project);
     }
 
     toggleEditProjectModal = (project) => {
         this.props.toggleProjectMenu();
-        this.props.toggleEditProjectModal(project);
     }
 
     render() {
@@ -42,12 +38,5 @@ class Projects extends Component {
         );
     }
 }
-
-Projects.propTypes = {
-    toggleProjectMenu: PropTypes.func.isRequired,
-    toggleDeleteProjectModal: PropTypes.func.isRequired,
-    toggleEditProjectModal: PropTypes.func.isRequired,
-    project: PropTypes.object
-};
 
 export default onClickOutside(Projects);

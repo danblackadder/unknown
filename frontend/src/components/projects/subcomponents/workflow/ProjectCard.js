@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import {
     MdMoreHoriz,
@@ -32,8 +30,6 @@ class ProjectCard extends Component {
                     <MdMoreHoriz size={24} className="cursor-pointer margin-left-8" onClick={() => this.toggleProjectMenu()}/>
                     {this.state.projectMenu ? (
                         <ProjectMenu 
-                            toggleDeleteProjectModal={this.props.toggleDeleteProjectModal} 
-                            toggleEditProjectModal={this.props.toggleEditProjectModal} 
                             toggleProjectMenu={this.toggleProjectMenu} 
                             project={this.props.project}/> 
                     ) : null}
@@ -54,12 +50,6 @@ class ProjectCard extends Component {
         );
     }
 }
-
-ProjectCard.propTypes = {
-    project: PropTypes.object,
-    toggleDeleteProjectModal: PropTypes.func.isRequired,
-    toggleEditProjectModal: PropTypes.func.isRequired,
-};
 
 
 export default ProjectCard;
